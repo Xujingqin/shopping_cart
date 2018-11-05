@@ -1,0 +1,130 @@
+<!--<mat-card>
+    <mat-card-content>
+        <mat-card-title>购物车</mat-card-title>
+        <ngx-datatable>
+                    <ngx-datatable-column name="商品编号">
+                      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="goods.id" let-row="row">
+                        <span>
+                          {{goods.id}}
+                        </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="商品名称">
+                      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="goods.name">
+                         <span>
+                          {{goods.name}}
+                        </span>
+                      </ng-template>                                             
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="购买数量">
+                      <ng-template ngx-datatable-cell-template let-value="goods.amount">
+                        //<button (click)="subAmount(goods.amount)">add</button> 
+                        //<input   placeholder="amount">
+                        //<button (click)="addAmount(goods.amount)">sub</button>
+                        <button>add</button> 
+                        <input  placeholder="amount">
+                        <button>sub</button>
+                      
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="产品单价">
+                        <ng-template ngx-datatable-cell-template let-value="goods.price">
+                          {{goods.price}
+                        </ng-template>>
+                    </ngx-datatable-column>>
+                    <ngx-datatable-column name="产品总价">
+                        <ng-template ngx-datatable-cell-template let-value="goodsprice"> 
+                          {{goods.amount*goods.price}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="操作">
+                        <ng-template ngx-datatable-cell-template let-value="value">
+                          <button (click)="deleteGoods()">移除</button>>
+                        </ng-template>
+                    </ngx-datatable-column>
+                  </ngx-datatable>
+                  <div>
+                      <label>总价:{{totalprice}}</label>
+                      <label>总量:{{totalamount}}</label>
+                  </div>
+    </mat-card-content>
+</mat-card>
+
+-->
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link type="text/css"  rel="stylesheet"/>
+</head>
+<body>
+
+    <table class="orderTable" fxLayoutAlign="center">
+        <thead>
+            <tr>
+                <th><label><input class="check-all check" type="checkbox" />&nbsp;全选</label></th>
+                <th>商品</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="checkbox"><input class="check-one check" type="checkbox"/></td>
+                <td class="name"><span>钢笔</span></td>
+                <td class="price">100</td>
+                <td class="count">
+                    <button class="reduce" (click)="removeFromOrder(item)">-</button>
+                    <input class="count-input" type="text" placeholder="1">
+                    <button class="add" (click)="addIntoOrder(item)">+</button>
+                </td>
+                <td class="subtotal">100</td>
+                <td class="operation"><button (click)="delete()">删除</button></td>
+            </tr>
+            <tr>
+                <td class="checkbox"><input class="check-one check" type="checkbox"/></td>
+                <td class="name"><span>鼠标</span></td>
+                <td class="price">50</td>
+                <td class="count">
+                    <button class="reduce" (click)="removeFromOrder(item)">-</button>
+                    <input class="count-input" type="text" placeholder="2">
+                    <button class="add" (click)="addIntoOrder(item)">+</button>
+                </td>
+                <td class="subtotal">100</td>
+                <td class="operation"><button (click)="delete()">删除</button></td>
+            </tr>
+            <tr *ngFor="let item of goodsService.goods">
+                <td class="checkbox"><input class="check-one check" type="checkbox"/></td>
+                <td class="name"><span>{{item.name}}</span></td>
+                <td class="price">{{item.price}}</td>
+                <td class="count">
+                    <button class="reduce" (click)="removeFromOrder(item)">-</button>
+                    <input class="count-input" type="text" [(ngModel)]="item.num">
+                    <button class="add" (click)="addIntoOrder(item)">+</button>
+                </td>
+                <td class="subtotal">{{item.num*item.price}}</td>
+                <td class="operation"><button (click)="delete()">删除</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="foot" id="foot">
+        <label class="fl select-all"><input type="checkbox" class="check-all check" value=checked>&nbsp;全选</label>
+        <div class="fr closing">结 算</div>
+        <div class="fr total">合计：<span>{{sumprice()}}</span></div>
+        <div class="fr selected" id="selected">
+            已选商品
+            <span id="selectedTotal">{{sumcount()}}件</span>
+        </div>
+        <div class="selected-view">
+            <div id="selectedViewList" class="clearfix">
+                <!--<div><img src="images/1.jpg"><span>取消选择</span></div>-->
+            </div>
+            <span class="arrow">◆<span>◆</span></span>
+        </div> 
+    </div>
+    <br>
+    <button class="order-back" (click)="goBack()" text-align="right" font-size="larger">返回商品列表</button>
+  

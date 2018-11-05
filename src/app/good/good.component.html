@@ -1,0 +1,9 @@
+
+<div>
+    <mat-card *ngFor="let good of goods_list" class="goods-card" [ngStyle]="{'background-image': 'url(' + good.url + ')'}" style="color:black">
+      {{good.name}}
+      <button mat-button mat-raised-button (click)="addIntoOrder(good)">加入购物车</button>
+    </mat-card>
+</div>
+<br>
+<button class="order-button" (click)="goToOrder()" text-align="right">我的购物车</button>

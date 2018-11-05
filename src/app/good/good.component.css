@@ -1,0 +1,25 @@
+
+.goods-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.goods-card { 
+    width: 20%;
+    height: 400px;
+    margin: 20px;
+    float: left;
+}
+
+.goods-card:hover {
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.4);
+  }
+  
+.order-button {
+    font-size: larger;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color:red;
+  }
